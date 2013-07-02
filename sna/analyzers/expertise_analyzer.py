@@ -5,6 +5,7 @@ Created on Tue Jul 02 11:15:32 2013
 @author: aitor
 """
 from sets import Set
+from datetime import date
 import pg # TODO: delete once the queries are djangoized
 
 
@@ -69,10 +70,10 @@ class expertise_analyzer():
                 expertises[tag].add(person)
         return expertises
     
-    # based on the person expertises recovers their chronological evolution   
+    # Based on the person expertises recovers their chronological evolution   
     def get_expertise_year(self, person, expertises): 
-        startYear = 2004
-        endYear = 2013   
+        startYear = 2004 # TODO change it to the first year of the person in the lab 
+        endYear = date.today().year   
         
         expertise_year = {}
         for expertise in expertises:
