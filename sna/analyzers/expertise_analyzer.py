@@ -76,7 +76,7 @@ class expertise_analyzer():
         slugs = self.query_person_slugs()
         personsTags = self.add_tags(slugs)
         personsExpertise = self.process_expertise(personsTags)
-        expertises = nc.group_by_tags(personsExpertise)
+        expertises = nc.group_by_relations(personsExpertise)
         relations = nc.get_relations(expertises) 
         nc.export_gephi_csv_undirected(relations, 'expertiseUndirected.csv')
         return relations

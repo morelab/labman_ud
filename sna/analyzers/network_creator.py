@@ -30,14 +30,13 @@ class network_creator():
             for relation in relations:
                 writer.writerow(relation)
                 
-    # Groups elements(projects, users, papers...) by their tags to identify
-    # relations
+    # Groups elements(projects, users, papers...) by their relations (tags, projects, papers...)
     # INPUT: {'foo': ['ambient-intelligence', 'aal'], 
     #         'bar': ['clustering', 'social-networks', 'aal'],
     #         'meh': ['clustering']}
     # OUTPUT: {'aal':['foo', 'bar'],
     #           'clustering': ['bar', 'meh']}
-    def group_by_tags(elements):
+    def group_by_relations(elements):
         tags = {}
         for element in elements:
             for tag in elements[elements]:
