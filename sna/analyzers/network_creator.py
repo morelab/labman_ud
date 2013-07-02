@@ -5,6 +5,7 @@ Created on Tue Jul 02 11:16:22 2013
 @author: aitor
 """
 import csv
+from sets import Set
 
 class network_creator():
     # Creates relations from a cooperation dict. The values can be a set or a list
@@ -28,3 +29,19 @@ class network_creator():
             writer = csv.writer(csvfile, delimiter=';')
             for relation in relations:
                 writer.writerow(relation)
+                
+    # Groups elements(projects, users, papers...) by their tags to identify
+    # relations
+    # INPUT: {'foo': ['ambient-intelligence', 'aal'], 
+    #         'bar': ['clustering', 'social-networks', 'aal'],
+    #         'meh': ['clustering']}
+    # OUTPUT: {'aal':['foo', 'bar'],
+    #           'clustering': ['bar', 'meh']}
+    def group_by_tags(elements):
+        tags = {}
+        for element in elements:
+            for tag in elements[elements]:
+                if not tag in tags.keys():
+                    tags[tag] = Set()
+                tags[tag].add(element)
+        return tags

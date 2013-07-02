@@ -6,6 +6,7 @@ Created on Tue Jul 02 11:15:32 2013
 """
 from sets import Set
 from datetime import date
+import network_creator as nc
 import pg # TODO: delete once the queries are djangoized
 
 
@@ -52,23 +53,7 @@ class expertise_analyzer():
         for person in persons_tags:
             expertise = self.__infer_person_expertise(persons_tags[person])
             persons_expertise[person] = expertise
-        return persons_expertise
-    
-        
-    # Groups persons according to their expertise to identify relations    
-    # INPUT: {'foo': ['ambient-intelligence', 'aal'], 
-    #         'bar': ['clustering', 'social-networks', 'aal'],
-    #         'meh': ['clustering']}
-    # OUTPUT: {'aal':['foo', 'bar'],
-    #           'clustering': ['bar', 'meh']}
-    def group_by_expertise(self, persons_expertise):
-        expertises = {}
-        for person in persons_expertise:
-            for tag in persons_expertise[person]:
-                if not tag in expertises.keys():
-                    expertises[tag] = Set()
-                expertises[tag].add(person)
-        return expertises
+        return persons_expertise   
     
     # Based on the person expertises recovers their chronological evolution   
     def get_expertise_year(self, person, expertises): 
@@ -84,6 +69,17 @@ class expertise_analyzer():
             expertise_year[expertise] = years
             
         return expertise_year
+        
+    # Create the social network based on the expertise relations
+    #  
+    def create_expertise_network(self):
+        slugs = self.query_person_slugs()
+        personsTags = self.add_tags(slugs)
+        personsExpertise = self.process_expertise(personsTags)
+        expertises = nc.group_by_tags(personsExpertise)
+        relations = nc.get_relations(expertises) 
+        nc.export_gephi_csv_undirected(relations, 'expertiseUndirected.csv')
+        return relations
         
     # ************************************************************************************    
     # TODO: All this functions must be djangoized. I'm not touching the queries until
