@@ -68,6 +68,21 @@ class expertise_analyzer():
                     expertises[tag] = Set()
                 expertises[tag].add(person)
         return expertises
+    
+    # based on the person expertises recovers their chronological evolution   
+    def get_expertise_year(self, person, expertises): 
+        startYear = 2004
+        endYear = 2013   
+        
+        expertise_year = {}
+        for expertise in expertises:
+            years = []
+            for year in range(startYear, endYear+1):
+                expertise_year_value = self.query_expertise_person_year(expertise, person, year)
+                years.append(expertise_year_value)
+            expertise_year[expertise] = years
+            
+        return expertise_year
         
     # ************************************************************************************    
     # TODO: All this functions must be djangoized. I'm not touching the queries until
