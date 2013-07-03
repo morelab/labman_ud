@@ -22,14 +22,7 @@ class network_creator():
                             relations.append([participant, participants[i]])       
         return relations        
         
-    # Exports the relations as an undirected csv file for gephi.
-    # TODO: Change it to proteus
-    def export_gephi_csv_undirected(relations, filename):
-        with open('./data/' + filename, 'wb') as csvfile:
-            writer = csv.writer(csvfile, delimiter=';')
-            for relation in relations:
-                writer.writerow(relation)
-                
+
     # Groups elements(projects, users, papers...) by their relations (tags, projects, papers...)
     # INPUT: {'foo': ['ambient-intelligence', 'aal'], 
     #         'bar': ['clustering', 'social-networks', 'aal'],
@@ -44,3 +37,19 @@ class network_creator():
                     tags[tag] = Set()
                 tags[tag].add(element)
         return tags
+        
+        # Exports the relations as an undirected csv file for gephi.
+    # TODO: Change it to proteus
+    def export_gephi_csv_undirected(relations, filename):
+        with open('./data/' + filename, 'wb') as csvfile:
+            writer = csv.writer(csvfile, delimiter=';')
+            for relation in relations:
+                writer.writerow(relation)
+    
+    def export_edgelist_mem(relations):
+        edgelist = []
+        for relation in relations:
+            edgelist.append(relation [0] + " " + relation[1])
+        return edgelist
+            
+        
