@@ -16,7 +16,7 @@ class project_analyzer():
             persons_project = self.query_persons_project()
             projects = self.__process_person_projects(persons_project)
             relations = nc.get_relations(projects)         
-            nc.export_gephi_csv_undirected(relations, 'cooperationUndirected.csv')
+            #nc.export_gephi_csv_undirected(relations, 'cooperationUndirected.csv')
             return relations
     
     # Creates the socal network of projects based on common tags       
@@ -25,7 +25,7 @@ class project_analyzer():
         projects = self.process_projects(projectsTags)
         tags = nc.group_by_relations(projects)
         relations = nc.get_relations(tags) 
-        nc.export_gephi_csv_undirected(relations, 'projectsUndirected.csv')
+        #nc.export_gephi_csv_undirected(relations, 'projectsUndirected.csv')
         return relations
             
     # INPUT:  [('Aitor', 'hey'), ('Unai', 'hey'), 
