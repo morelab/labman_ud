@@ -21,7 +21,6 @@ labman_ud/collected_static/
 
 # Database and JSON
 *.db
-*.json
 
 # South migrations and database fixtures
 migrations/
