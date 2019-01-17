@@ -14,10 +14,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', []))
+ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', '[]'))
 
 ADMINS = (
-    eval(os.environ.get('ADMINS'), ())
+    eval(os.environ.get('ADMINS', '()'))
 )
 
 
@@ -170,10 +170,64 @@ DEFAULT_THRESHOLD_RATIO = 60
 # Email settings
 EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', False)
+EMAIL_TIMEOUT = os.environ.get('EMAIL_TIMEOUT', None)
+
 
 DEFAULT_EMAIL_SENDER = os.environ.get('DEFAULT_EMAIL_SENDER', '')
-NEWS_UPDATES_RECEIVERS = eval(os.environ.get('NEWS_UPDATES_RECEIVERS'), '')
+NEWS_UPDATES_RECEIVERS = eval(os.environ.get('NEWS_UPDATES_RECEIVERS', ''))
 
 # RDF settings
 
 ENABLE_RDF_PUBLISHING = os.environ.get('ENABLE_RDF_PUBLISHING')
+
+# Logging settings
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': """
+[%(asctime)s] %(levelname)s
+[%(name)s:%(lineno)s]
+    %(message)s
+            """,
+            'datefmt': '%Y/%m/%d %H:%M:%S',
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'compact': {
+            'format': '[%(asctime)s] [%(levelname)s]\t%(message)s',
+            'datefmt': '%Y/%m/%d %H:%M:%S'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'compact',
+        },
+        'mail_admins': {
+            'level': 'WARNING',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'maintenance_tasks': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'extractors.zotero': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
