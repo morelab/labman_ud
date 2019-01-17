@@ -17,7 +17,7 @@ DEBUG = os.environ.get('DEBUG', False)
 ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', []))
 
 ADMINS = (
-    eval(os.environ.get('ADMINS'))
+    eval(os.environ.get('ADMINS'), ())
 )
 
 
@@ -172,9 +172,8 @@ EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 
 DEFAULT_EMAIL_SENDER = os.environ.get('DEFAULT_EMAIL_SENDER', '')
-NEWS_UPDATES_RECEIVERS = eval(os.environ.get('NEWS_UPDATES_RECEIVERS'))
+NEWS_UPDATES_RECEIVERS = eval(os.environ.get('NEWS_UPDATES_RECEIVERS'), '')
 
 # RDF settings
 
 ENABLE_RDF_PUBLISHING = os.environ.get('ENABLE_RDF_PUBLISHING')
-
