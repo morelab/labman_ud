@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = eval(os.environ.get('DEBUG', 'False'))
 
 ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', '[]'))
 
@@ -172,8 +172,8 @@ EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', False)
+EMAIL_USE_TLS = eval(os.environ.get('EMAIL_USE_TLS', 'False'))
+EMAIL_USE_SSL = eval(os.environ.get('EMAIL_USE_SSL', 'False'))
 EMAIL_TIMEOUT = os.environ.get('EMAIL_TIMEOUT', None)
 
 
@@ -182,7 +182,7 @@ NEWS_UPDATES_RECEIVERS = eval(os.environ.get('NEWS_UPDATES_RECEIVERS', ''))
 
 # RDF settings
 
-ENABLE_RDF_PUBLISHING = os.environ.get('ENABLE_RDF_PUBLISHING')
+ENABLE_RDF_PUBLISHING = eval(os.environ.get('ENABLE_RDF_PUBLISHING', 'False'))
 
 # Logging settings
 
