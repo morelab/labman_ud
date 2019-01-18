@@ -21,3 +21,5 @@ labman_ud/collected_static/
 *.db
 *.sqlite3
 **/.idea/workspace.xml **/.idea/tasks.xml
+
+robots.txt
