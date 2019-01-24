@@ -1,5 +1,4 @@
 #!/bin/bash
 
-cd labman_ud
-python manage.py runserver --settings=labman_ud.settings.settings 0.0.0.0:8000
-python manage.py collectstatic --settings=labman_ud.settings.settings
+python /src/labman_ud/labman_ud/manage.py collectstatic --noinput --settings=labman_ud.settings.settings
+./wait-for-it/wait-for-it.sh ${DATABASE_HOST}:${DATABASE_PORT} && python  /src/labman_ud/labman_ud/manage.py runserver --settings=labman_ud.settings.settings 0.0.0.0:8000

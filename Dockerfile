@@ -13,4 +13,7 @@ EXPOSE 8000
 RUN mkdir /src/labman_ud/labman_ud/media
 VOLUME /src/labman_ud/labman_ud/media
 
+WORKDIR /
+RUN git clone https://github.com/vishnubob/wait-for-it
+
 ENTRYPOINT ["/src/labman_ud/entrypoint.sh"]
