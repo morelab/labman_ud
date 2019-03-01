@@ -3,7 +3,10 @@
 import threading
 import weakref
 
+
 from inflection import titleize
+from functools import cmp_to_key
+
 
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
@@ -409,7 +412,15 @@ def member_publications(request, person_slug, publication_type_slug=None):
         pdf = publication_item.pdf if publication_item.pdf else None
 
         publication_authors = publication_item.publicationauthor_set.all()
-        sorted_publication_authors = sorted(publication_authors, lambda x, y: cmp(x.position, y.position))
+        ##sorted_publication_authors = sorted(publication_authors, key=lambda x, y: cmp(x.position, y.position))
+        # In Python 3 we canuse cmp to sort or list so we defined a method to do it
+        # cmp(a,b) --> (a > b) - (a < b)
+
+        def compare(x, y):
+            return (x.position > y.position) - (x.position < y.position)
+
+        sorted_publication_authors = sorted(publication_authors, key=cmp_to_key(compare))
+
         author_list = [pubauthor.author.full_name for pubauthor in sorted_publication_authors]
         authors = ', '.join(author_list)
 

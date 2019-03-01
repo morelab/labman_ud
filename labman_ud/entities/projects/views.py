@@ -243,7 +243,7 @@ def project_index(request, tag_slug=None, status_slug=None, project_type_slug=No
 
     else:
         if 'filtered' in request.session.keys():
-            p = re.compile(ur'projects\/filtered(\/\?page=[1-9]+)?')
+            p = re.compile(r'projects\/filtered(\/\?page=[1-9]+)?')
 
             if  re.search(p, request.path) == None:
                 del request.session['filtered']

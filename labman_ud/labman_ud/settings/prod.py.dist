@@ -1,5 +1,5 @@
 
-from .base import *
+from labman_ud.settings.base import *
 
 
 DEBUG = False

@@ -42,7 +42,7 @@ def _validate_term(token, name, numeric=False):
 
     return True
 
-
+# TODO Esto es un poco chapur.  review --> dinamic filter
 def publication_index(request, tag_slug=None, publication_type=None, query_string=None):
     tag = None
 
@@ -81,8 +81,6 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
         form = PublicationSearchForm(request.POST, extra_author=form_author_field_count,
             extra_editor=form_editor_field_count)
         if form.is_valid():
-            query_string = form.cleaned_data['text']
-
             query_string = form.cleaned_data['text']
             form_from_year = form.cleaned_data['from_year']
             form_from_range = form.cleaned_data['from_range']
@@ -150,7 +148,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
                     if person_id and found:
                         person_publications_set = set()
                         for _id in person_id:
-                            print PublicationEditor.objects.all().values_list('editor__full_name', flat=True)
+                            print(PublicationEditor.objects.all().values_list('editor__full_name', flat=True))
                             person_publications = PublicationEditor.objects.all().filter(editor_id=_id).values_list('publication_id', flat=True)
                             if person_publications:
                                 person_publications_set.update(person_publications)
@@ -184,7 +182,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
 
     else:
         if 'filtered' in request.session.keys():
-            p = re.compile(ur'publications\/filtered(\/\?page=[1-9]+)?')
+            p = re.compile(r'publications\/filtered(\/\?page=[1-9]+)?')
 
             if  re.search(p, request.path) == None:
                 # IF requested page is not filted, deletes session filter info.
@@ -216,10 +214,10 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
                 form_tags = request.session['filtered']['form_tags']
                 form_authors_name = []
                 for utf8type in request.session['filtered']['form_authors_name']:
-                    form_authors_name.append(utf8type.encode('utf8'))
+                    form_authors_name.append(utf8type)
                 form_editor_name = []
                 for utf8type in request.session['filtered']['form_editors_name']:
-                    form_editors_name.append(utf8type.encode('utf8'))
+                    form_editors_name.append(utf8type)
                 clean_index = False
         else:
             form = PublicationSearchForm(extra_author=1, extra_editor=1)

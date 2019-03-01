@@ -186,7 +186,7 @@
     <script>
         var word_array = [
             {% for tag in tag_list %}
-                {text: "{{ tag }}", weight: "{% randInt 2 8 %}", link:"{% url 'view_publication_tag' tag.slug %}"},
+                {text: "{{ tag.name }}", weight: "{% randInt 2 8 %}", link:"{% url 'view_publication_tag' tag.slug %}"},
             {% endfor %}
         ];
 

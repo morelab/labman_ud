@@ -50,7 +50,7 @@ def post_tweet(news_instance):
             tweetpony_api.update_status(status=tweet)
 
         except tweetpony.APIError as err:
-            print "Oops, something went wrong! Twitter returned error #%i and said: %s" % (err.code, err.description)
+            print("Oops, something went wrong! Twitter returned error #%i and said: %s" % (err.code, err.description))
 
 
 def _get_tweetpony_configuration():
@@ -58,7 +58,7 @@ def _get_tweetpony_configuration():
         return TweetPonyConfiguration.objects.get()
 
     except:
-        print 'TweetPonyConfiguration object not filled'
+        print('TweetPonyConfiguration object not filled')
         return None
 
 

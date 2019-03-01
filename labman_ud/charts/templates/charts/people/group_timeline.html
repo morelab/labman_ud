@@ -66,7 +66,7 @@
           var options = {
             colors : [
             {% for member_info in members %}
-                color_per_unit["{{ member_info.organization }}"]{% if not forloop.last %},{% endif %}
+                color_per_unit["{{ member_info.organization.full_name }}"]{% if not forloop.last %},{% endif %}
             {% endfor %}
             ]
           };

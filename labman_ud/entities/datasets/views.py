@@ -81,7 +81,7 @@ def datasets_index(request, tag_slug=None):
         # Obtaining session filter_data to know if we have filtering data
         filter_data = request.session.get('filter_data', None)
         # Check if we are calling to filtering page or not to avoid any session active filtering
-        p = re.compile(ur'datasets\/filtered(\/\?page=[1-9]+)?')
+        p = re.compile(r'datasets\/filtered(\/\?page=[1-9]+)?')
         if tag_slug or re.search(p, request.path) is not None and filter_data:
             # We have filtering data
             if tag_slug:

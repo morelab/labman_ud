@@ -1,8 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 
-import urllib
-import urllib2
+# Python 3 compatibility support
+import sys
+
+if sys.version_info[0] >= 3:
+    import urllib as urllib2
+else:
+    import urllib
+    import urllib2
+
 
 from rdflib import Graph
 from rdflib.namespace import Namespace, FOAF, DC, XSD, RDF, RDFS
@@ -57,9 +64,8 @@ def _perform_request(query):
         urllib2.urlopen(request)
 
     except:
-        print u'Unable to perform HTTP request over SPARQL endpoint'
-        print query
-        print
+        print(u'Unable to perform HTTP request over SPARQL endpoint')
+        print(query, '\n')
 
 
 def insert_by_post(graph):

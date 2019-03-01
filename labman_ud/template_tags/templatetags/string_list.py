@@ -10,5 +10,5 @@ register = Library()
 ####################################################################################################
 
 @register.filter
-def string_list( objectList ):
+def string_list(objectList):
 	return json.dumps(list(objectList))

@@ -1,11 +1,13 @@
 # -*- encoding: utf-8 -*-
 
-from charts.utils import community
+# from charts.utils import community
 
 import networkx as nx
-
+import community
+from networkx.algorithms import community as comm
 
 def analyze(G):
+
     components = []
 
     components = nx.connected_component_subgraphs(G)
@@ -44,14 +46,14 @@ def analyze(G):
 
     #calculate degree
     degrees = G.degree()
-    for name in degrees:
+    for name in dict(degrees):
         G.node[name]['degree'] = degrees[name]
 
     betweenness = nx.betweenness_centrality(G)
     eigenvector = nx.eigenvector_centrality_numpy(G)
     closeness = nx.closeness_centrality(G)
     pagerank = nx.pagerank(G)
-    k_cliques = nx.k_clique_communities(G, 3)
+    k_cliques = comm.k_clique_communities(G, 3)
 
     for name in G.nodes():
         G.node[name]['betweenness'] = betweenness[name]
@@ -63,6 +65,7 @@ def analyze(G):
         for member in k_clique:
             G.node[member]['k-clique'] = pos
 
+    #TODO the community is now a python 3 package. The original community class is removed, check if the current library meets the needed
     partitions = community.best_partition(G)
 
     for key in partitions:
