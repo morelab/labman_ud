@@ -18,6 +18,10 @@ All project-related information can be found on the [wiki](https://github.com/Os
 
 Installation advices can be found on the related [wiki page](https://github.com/OscarPDR/labman_ud/wiki/Installation).
 
+# Running on Docker
+
+docker run -d --network labman -p 8000:8000 --name labman -e SECRET_KEY=<SECRET_KEY> -e DEBUG=<True|False> -e ALLOWED_HOSTS=<['my-host']> -e DATABASE_ENGINE=<django.db.backends.postgresql|mysql> -e DATABASE_NAME=<labman> -e DATABASE_USER=<labman> -e DATABASE_PASSWORD=<labmanpassword> -e DATABASE_HOST=<localhost> -e DATABASE_PORT=<5432>
+
 # Contact
 
 Should you be interested in powering your research unit's webpage using **labman_ud**, ask any doubt or collaborate with the project in any way, don't hesitate to contact us at [oscar.pena@deusto.es](mailto:oscar.pena@deusto.es)

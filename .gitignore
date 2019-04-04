@@ -11,7 +11,7 @@
 *.DS_Store
 
 # Settings
-labman_ud/labman_ud/settings/*.py
+#labman_ud/labman_ud/settings/*.py
 
 # Media and static files
 labman_ud/media/
@@ -21,3 +21,6 @@ labman_ud/collected_static/
 *.db
 *.sqlite3
 **/.idea/workspace.xml **/.idea/tasks.xml
+
+robots.txt
+crontab/fstab
