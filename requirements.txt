@@ -6,7 +6,7 @@ TweetPony==1.5.2
 Unipath==1.1
 bootstrap-admin==0.3.7.1
 cffi==1.8.3
-cryptography==1.5.2
+cryptography==2.4.2
 decorator==4.0.10
 django-cleanup==0.4.2
 django-debug-toolbar==1.6
