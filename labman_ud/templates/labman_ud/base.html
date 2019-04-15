@@ -120,14 +120,14 @@
                                 </li>
 
                                 <li id="publications-nav" class="dropdown">
-                                    <a href="{% url 'publication_index' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <a href="{% url 'publication_index' page=1 %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <i class="fa fa-book fa-grey"></i>
                                         Publications <span class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="{% url 'publication_index' %}">
+                                            <a href="{% url 'publication_index' page=1 %}">
                                                 {{ NUMBER_OF_PUBLICATIONS }} publications
                                             </a>
                                         </li>
@@ -331,6 +331,7 @@
                     $('#brand-text').text('{{ RESEARCH_GROUP_SETTINGS.research_group_full_name }}');
                 };
             };
+
             // Window resize detect
             $(window).resize(function() {
                 change_group_name();
