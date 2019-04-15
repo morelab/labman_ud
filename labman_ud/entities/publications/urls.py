@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^feed/$', FeedWrapper(LatestPublicationsFeed()), name='publication_feed'),
 
     url(r'^tag/(?P<tag_slug>\S+)/$', views.publication_index, name='view_publication_tag'),
-    url(r'^publication_type/(?P<publication_type>\S+)/(?P<page>\d+)$', views.publication_index, name='view_publication_type'),
+    url(r'^publication_type/(?P<publication_type>\S+)/$', views.publication_index, name='view_publication_type'),
 
     url(r'^phd_dissertations/$', views.phd_dissertations_index, name='phd_dissertations_index'),
 
