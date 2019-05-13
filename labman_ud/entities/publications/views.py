@@ -46,7 +46,6 @@ def _validate_term(token, name, numeric=False):
 
 
 def publication_index(request, tag_slug=None, publication_type=None, query_string=None, page=1):
-    
 
     tag = None
 
@@ -71,6 +70,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
 
     if publication_type:
         publications = Publication.objects.filter(child_type=publication_type)
+
 
     if not tag_slug and not publication_type:
         clean_index = True
@@ -127,8 +127,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
 
             if form_publication_types:
                 publications = publications.filter(child_type__in=form_publication_types)
-                print("LEN")
-                print(len(publications))
+                
             if form_tags:
                 publications = publications.filter(publicationtag__tag__name__in=form_tags)
 
@@ -157,7 +156,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
                     if person_id and found:
                         person_publications_set = set()
                         for _id in person_id:
-                            print PublicationEditor.objects.all().values_list('editor__full_name', flat=True)
+                            # print PublicationEditor.objects.all().values_list('editor__full_name', flat=True)
                             person_publications = PublicationEditor.objects.all().filter(editor_id=_id).values_list('publication_id', flat=True)
                             if person_publications:
                                 person_publications_set.update(person_publications)
@@ -184,9 +183,9 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
                 'form_author_field_count' : len(form_authors_name),
                 'form_editor_field_count' : len(form_editors_name),
             }
-            print('BUSQUEDA AVANZADA')
             request.session['filtered'] = session_filter_dict
 
+            
             return HttpResponseRedirect(reverse('filtered_publication_query', kwargs={'page':'1'}))
 
     else:
@@ -219,8 +218,6 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
                 form_publication_types = []
                 for utf8type in request.session['filtered']['form_publication_types']:
                     form_publication_types.append(utf8type.encode('utf8'))
-                print("PUBTYPES")
-                print(form_publication_types)
                 form_tags = request.session['filtered']['form_tags']
                 form_authors_name = []
                 for utf8type in request.session['filtered']['form_authors_name']:
@@ -306,17 +303,20 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
             page = 1
 
         clean_index = False
-        print('FILTRO')
+        
     else:
         if page == None:
             page = 1
         if not 'filtered' in request.session.keys():
-            sql_query = Publication.objects.exclude(authors=None).all().prefetch_related('authors').order_by('-year')
+            if publication_type:
+                sql_query = Publication.objects.filter(Q(child_type=publication_type)).exclude(authors=None).all().prefetch_related('authors').order_by('-year')
+                request.session['pub_type'] = publication_type
+            else:
+                sql_query = Publication.objects.exclude(authors=None).all().prefetch_related('authors').order_by('-year')
             paginator = Paginator(sql_query, 10)
         else:
-            print("LOCOOOO")
             paginator =Paginator(publications, 10)
-
+        
     
     # Retrieves all the publication types.
     publications_ids = PublicationAuthor.objects.values_list('publication',
@@ -383,6 +383,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
         'form_editors_name' : form_editors_name,
         'web_title': u'Publications',
     }
+
     
     return render(request, 'publications/index.html', return_dict)
 
@@ -393,7 +394,6 @@ def publication_info(request, publication_slug):
     publication = get_object_or_404(Publication, slug=publication_slug)
     return_dict = __build_publication_return_dict(publication)
     return_dict['web_title'] = publication.title
-    print(request)
     return render(request, 'publications/info.html', return_dict)
 
 

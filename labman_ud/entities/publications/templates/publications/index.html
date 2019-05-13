@@ -164,13 +164,21 @@
             {% if 'filtered' in request.path %}
                 <li><a href="/publications/filtered/1">First</a></li>
             {% else %}
-                <li><a href="/publications/1">First</a></li>
+                {% if 'publication_type' in request.path %}
+                    <li><a href="/publications/publication_type/{{ request.session.pub_type }}/1">First</a></li>
+                {% else %}
+                    <li><a href="/publications/1">First</a></li>
+                {% endif %}
             {% endif %}
             {% if publications.has_previous %}
                 {% if 'filtered' in request.path %}
                     <li><a href="/publications/filtered/{{ publications.previous_page_number }}">{{ publications.previous_page_number }}</a></li>
                 {% else %}
-                    <li><a href="/publications/{{ publications.previous_page_number }}">{{ publications.previous_page_number }}</a></li>
+                    {% if 'publication_type' in request.path %}
+                        <li><a href="/publications/publication_type/{{ request.session.pub_type }}/{{ publications.previous_page_number }}">{{ publications.previous_page_number }}</a></li>
+                    {% else %}
+                        <li><a href="/publications/{{ publications.previous_page_number }}">{{ publications.previous_page_number }}</a></li>
+                    {% endif %}        
                 {% endif %}
             {% endif %}
             <li class="active"><a href="#">{{ publications.number }}</a></li>
@@ -178,13 +186,21 @@
                 {% if 'filtered' in request.path %}
                     <li><a href="/publications/filtered/{{ publications.next_page_number }}">{{ publications.next_page_number }}</a></li>
                 {% else %}
-                    <li><a href="/publications/{{ publications.next_page_number }}">{{ publications.next_page_number }}</a></li>
+                    {% if 'publication_type' in request.path %}
+                        <li><a href="/publications/publication_type/{{ request.session.pub_type }}/{{ publications.next_page_number }}">{{ publications.next_page_number }}</a></li>
+                    {% else %}
+                        <li><a href="/publications/{{ publications.next_page_number }}">{{ publications.next_page_number }}</a></li>
+                    {% endif %}        
                 {% endif %}
             {% endif %}
             {% if 'filtered' in request.path %}
                 <li><a href="/publications/filtered/{{ publications.paginator.num_pages }}">Last</a></li>
             {% else %}
-                <li><a href="/publications/{{ publications.paginator.num_pages }}">Last</a></li>
+                {% if 'publication_type' in request.path %}
+                    <li><a href="/publications/publication_type/{{ request.session.pub_type }}/{{ publications.paginator.num_pages }}">Last</a></li>
+                {% else %}
+                    <li><a href="/publications/{{ publications.paginator.num_pages }}">Last</a></li>
+                {% endif %}
             {% endif %}
             </ul>
             </nav>
