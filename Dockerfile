@@ -6,7 +6,12 @@ WORKDIR /src
 ADD . /src/labman_ud
 
 WORKDIR /src/labman_ud
-RUN pip install -r requirements.txt
+
+RUN apt-get update
+RUN apt-get -y install graphviz python-dev libgraphviz-dev
+
+RUN pip2 install -U pip
+RUN pip2 install -r requirements.txt
 
 EXPOSE 8000
 
