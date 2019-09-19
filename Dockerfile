@@ -10,8 +10,8 @@ WORKDIR /src/labman_ud
 RUN apt-get update
 RUN apt-get -y install graphviz python-dev
 
-RUN pip install -U pip
-RUN pip install -r requirements.txt
+RUN pip2 install -U pip
+RUN pip2 install -r requirements.txt
 
 EXPOSE 8000
 
