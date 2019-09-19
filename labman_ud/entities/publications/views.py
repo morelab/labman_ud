@@ -78,6 +78,7 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
 
     publications = publications.order_by('-year', '-title').exclude(authors=None)
 
+
     if request.method == 'POST':
         form_author_field_count = request.POST.get('author_field_count')
         form_editor_field_count = request.POST.get('editor_field_count')

@@ -26,12 +26,12 @@
 
             <h2 id="extended-form-title">Advanced Search</h2>
 
-            <ul class="nav nav-tabs" id="extended-form-tabs">
+            <!-- <ul class="nav nav-tabs" id="extended-form-tabs">
                 <li><a id="all-tab">All <i class="fa"></i></a></li>
                 <li class="active"><a data-target="#basic-info-tab" data-toggle="tab">Basic Information <i class="fa"></i></a></li>
                 <li><a data-target="#authors-tab" data-toggle="tab">Authors <i class="fa"></i></a></li>
                  <li><a data-target="#editors-tab" data-toggle="tab">Editors <i class="fa"></i></a></li>
-            </ul>
+            </ul> -->
 
             <div id="extended-form" class="form-horizontal">
                 
@@ -102,7 +102,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="tab-pane" id="authors-tab">
+                    <div class="tab-pane active" id="authors-tab">
                         {% if form.author_field_count.value %}
                             <div id="member-list">
                                 {% for index in form.author_field_count.value|get_range %}
@@ -123,7 +123,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="editors-tab">
+                    <div class="tab-pane active" id="editors-tab">
                         {% if form.editor_field_count.value %}
                             <div id="editor-list">
                                 {% for index in form.editor_field_count.value|get_range %}
@@ -487,11 +487,11 @@
             }
         });
 
-        $('#all-tab').click(function() {
-            $('#extended-form-tabs li.active').removeClass('active');
-            $(this).parent().addClass('active');
-            $('.tab-pane').addClass('active');
-        });
+        // $('#all-tab').click(function() {
+        //     $('#extended-form-tabs li.active').removeClass('active');
+        //     $(this).parent().addClass('active');
+        //     $('.tab-pane').addClass('active');
+        // });
 
         $('.search-button').click(function() {
             $('#loading').show();
