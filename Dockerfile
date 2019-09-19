@@ -6,6 +6,7 @@ WORKDIR /src
 ADD . /src/labman_ud
 
 WORKDIR /src/labman_ud
+RUN pip install -U pip
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
