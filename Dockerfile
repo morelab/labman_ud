@@ -6,6 +6,10 @@ WORKDIR /src
 ADD . /src/labman_ud
 
 WORKDIR /src/labman_ud
+
+RUN apt-get update
+RUN apt-get -y install graphviz python-dev
+
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 
