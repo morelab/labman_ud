@@ -64,16 +64,13 @@ class PublicationSearchForm(forms.Form):
 
         publication_types_tuple = (())
         types = Publication.objects.all().values_list('child_type', flat=True).order_by('child_type').distinct()
-        for choice in types:
-            publication_types_tuple = publication_types_tuple + ((choice, choice),)
-
-        self.publication_types = forms.MultipleChoiceField(
-            choices=publication_types_tuple, required=False)
 
         extra_editor_fields = kwargs.pop('extra_editor', 1)
         extra_author_fields = kwargs.pop('extra_author', 1)
 
         super(PublicationSearchForm, self).__init__(*args, **kwargs)
+        self.fields['publication_types'].choices = [(choice, choice) for choice in types]
+
         self.fields['editor_field_count'].initial = extra_editor_fields
         self.fields['author_field_count'].initial = extra_author_fields
 
