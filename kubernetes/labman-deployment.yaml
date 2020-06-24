@@ -86,7 +86,7 @@ spec:
           name: labman-static
           subPath: media
         ports:
-        - containerPort: 5000
+        - containerPort: 8000
       - name: labman-nginx
         image: nginx
         volumeMounts:
