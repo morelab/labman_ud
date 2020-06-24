@@ -85,6 +85,8 @@ spec:
         - mountPath: /src/labman_ud/labman_ud/media
           name: labman-static
           subPath: media
+        ports:
+        - containerPort: 5000
       - name: labman-nginx
         image: nginx
         volumeMounts:
@@ -100,6 +102,8 @@ spec:
           name: config
           subPath: nginx.conf
           readOnly: true
+        ports:
+        - containerPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
