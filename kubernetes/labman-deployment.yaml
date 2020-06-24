@@ -119,5 +119,5 @@ spec:
               name: labman-secret
               key: database_password
         volumeMounts:
-        - mountPah: /var/lib/postgresql/data
+        - mountPath: /var/lib/postgresql/data
           name: labman-db
