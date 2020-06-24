@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labman-web
+  namespace: labman-web
+  labels:
+    app: labman-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labman-web
+  template:
+    metadata:
+      labels:
+        app: labman-web
+    spec:
+      volumes:
+      - name: labman-static
+        persistentVolumeClaim:
+          claimName: labman-static
+      - name: config
+        configMap:
+          name: labman-config
+      containers:
+      - name: labman-django
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: secret_key
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_name
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_user
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_password
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: labman-config
+              key: database_host
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: labman-config
+              key: database_port
+        volumeMounts:
+        - mountPath: /src/labman_ud/labman_ud/static
+          name: static
+          subPath: static
+        - mountPath: /src/labman_ud/labman_ud/media
+          name: media
+          subPath: media
+      - name: labman-nginx
+        image: nginx
+        volumeMounts:
+        - mountPath: /var/www/labman/static
+          name: static
+          subPath: static
+          readOnly: true
+        - mountPath: /var/www/labman/media
+          name: media
+          subPath: media
+          readOnly: true
+        - mountPath: /etc/nginx/nginx.conf
+          name: config
+          readOnly: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labman-db
+  namespace: labman-web
+  labels:
+    app: labman-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labman-db
+  template:
+    metadata:
+      labels:
+        app: labman-db
+    spec:
+      volumes:
+      - name: labman-db
+        persistentVolumeClaim:
+          claimName: labman-db
+      containers:
+      - name: labman-db
+        image: postgres:9.5
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_name
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: database_password
+        volumeMounts:
+        - mountPah: /var/lib/postgresql/data
+          name: labman-db
