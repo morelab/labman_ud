@@ -10,6 +10,7 @@ data:
   database_host: 'labman-db'
   database_port: '5432'
   nginx.conf: >-
+        http {
         server {
         
                 listen 80;
@@ -41,4 +42,5 @@ data:
                 location /health {
                         return 200 "healthy\n";
                 }
+        }
         }

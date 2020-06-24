@@ -63,6 +63,11 @@ spec:
             configMapKeyRef:
               name: labman-config
               key: database_port
+        - name: ALLOWED_HOSTS
+          valueFrom:
+            configMapKeyRef:
+              name: labman-config
+              key: allowed_hosts
         - name: NEWS_UPDATES_RECEIVERS
           valueFrom:
             secretKeyRef:
