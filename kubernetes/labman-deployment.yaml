@@ -20,6 +20,8 @@ spec:
       labels:
         app: labman-web
     spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
       volumes:
       - name: labman-static
         persistentVolumeClaim:
