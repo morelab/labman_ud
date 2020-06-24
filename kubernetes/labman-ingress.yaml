@@ -11,7 +11,7 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: labman-nginx
+          serviceName: labman-web
           servicePort: 80
   tls:
   - hosts:
