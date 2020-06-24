@@ -121,3 +121,4 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: labman-db
+          subPath: db
