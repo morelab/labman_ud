@@ -68,6 +68,11 @@ spec:
             configMapKeyRef:
               name: labman-config
               key: allowed_hosts
+        - name: DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: labman-config
+              key: debug
         - name: NEWS_UPDATES_RECEIVERS
           valueFrom:
             secretKeyRef:
