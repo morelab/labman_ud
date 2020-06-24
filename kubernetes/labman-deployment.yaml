@@ -79,7 +79,7 @@ spec:
               name: labman-secret
               key: news_updates_receivers
         volumeMounts:
-        - mountPath: /src/labman_ud/labman_ud/static
+        - mountPath: /src/labman_ud/labman_ud/collected_static
           name: labman-static
           subPath: static
         - mountPath: /src/labman_ud/labman_ud/media
