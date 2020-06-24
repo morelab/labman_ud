@@ -63,6 +63,11 @@ spec:
             configMapKeyRef:
               name: labman-config
               key: database_port
+        - name: NEWS_UPDATES_RECEIVERS
+          valueFrom:
+            secretKeyRef:
+              name: labman-secret
+              key: news_updates_receivers
         volumeMounts:
         - mountPath: /src/labman_ud/labman_ud/static
           name: labman-static

@@ -9,8 +9,8 @@ data:
   database_engine: 'django.db.backends.postgresql'
   database_host: 'labman-db'
   database_port: '5432'
-  nginx.conf: >
-        'server {
+  nginx.conf: >-
+        server {
         
                 listen 80;
                 server_name labman.apps.openshift.deustotech.eu morelab.deusto.es;
@@ -41,4 +41,4 @@ data:
                 location /health {
                         return 200 "healthy\n";
                 }
-        }'
+        }
