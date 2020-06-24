@@ -5,17 +5,19 @@ metadata:
   namespace: labman-web
 data:
   debug: 'True'
-  allowed_hosts: '*'
+  allowed_hosts: '["*"]'
   database_engine: 'django.db.backends.postgresql'
   database_host: 'labman-db'
   database_port: '5432'
   nginx.conf: >-
+        events {
+        }
         http {
         server {
         
                 listen 80;
                 server_name labman.apps.openshift.deustotech.eu morelab.deusto.es;
-        
+                
                 location /static {
                         autoindex on;
                         alias /var/www/labman/static;
@@ -29,7 +31,7 @@ data:
                 }
         
                 location / {
-                        proxy_pass http://labman:8000;
+                        proxy_pass http://labman-django:5000;
                         proxy_set_header Host $host;
                 }
         
