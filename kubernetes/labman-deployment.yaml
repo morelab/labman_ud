@@ -76,6 +76,7 @@ spec:
           readOnly: true
         - mountPath: /etc/nginx/nginx.conf
           name: config
+          subPath: nginx.conf
           readOnly: true
 ---
 apiVersion: apps/v1
