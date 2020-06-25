@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: labman-config
-  namespace: labman-web
+  namespace: labman-${CICD_GIT_BRANCH}
 data:
   debug: 'True'
   allowed_hosts: '["*"]'
