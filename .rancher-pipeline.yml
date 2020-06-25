@@ -8,6 +8,6 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./kubernetes/labman-deployment.yaml
+      path: ./kubernetes/${CICD_GIT_BRANCH}/*.yaml
 timeout: 60
 notification: {}
