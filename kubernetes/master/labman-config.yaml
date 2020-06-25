@@ -15,7 +15,8 @@ data:
         events {
         }
         http {
-                access_log   /var/log/nginx/access.log;
+               access_log   /var/log/nginx/access.log;
+               include    /etc/nginx/mime.types;
 
         server {
         

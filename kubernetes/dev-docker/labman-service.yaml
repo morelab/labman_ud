@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: labman-web
+  namespace: labman-web-dev
+spec:
+  selector:
+    app: labman-web
+  ports:
+    - protocol: TCP
+      name: labman-django
+      port: 8000
+      targetPort: 8000
+    - protocol: TCP
+      name: labman-nginx
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: labman-db
+  namespace: labman-web-dev
+spec:
+  selector:
+    app: labman-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
