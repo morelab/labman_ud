@@ -8,14 +8,15 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./kubernetes/${CICD_GIT_BRANCH}/labman-pvc.yaml
+      path: ./kubernetes/labman-pvc.yaml
   - applyYamlConfig:
-      path: ./kubernetes/${CICD_GIT_BRANCH}/labman-config.yaml
+      path: ./kubernetes/labman-config.yaml
   - applyYamlConfig:
-      path: ./kubernetes/${CICD_GIT_BRANCH}/labman-deployment.yaml
+      path: ./kubernetes/labman-deployment.yaml
   - applyYamlConfig:
-      path: ./kubernetes/${CICD_GIT_BRANCH}/labman-ingress.yaml
+      path: ./kubernetes/labman-ingress.yaml
   - applyYamlConfig:
-      path: ./kubernetes/${CICD_GIT_BRANCH}/labman-service.yaml
+      path: ./kubernetes/labman-service.yaml
 timeout: 60
 notification: {}
+

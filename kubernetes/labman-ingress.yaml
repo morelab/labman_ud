@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: labman.apps.openshift.deustotech.eu
-  namespace: labman-web
+  name: labman-${CICD_GIT_BRANCH}.apps.openshift.deustotech.eu
+  namespace: labman-${CICD_GIT_BRANCH}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
-  - host: labman.apps.openshift.deustotech.eu
+  - host: labman-${CICD_GIT_BRANCH}.apps.openshift.deustotech.eu
     http:
       paths:
       - backend:
@@ -15,6 +15,6 @@ spec:
           servicePort: 80
   tls:
   - hosts:
-    - labman.apps.openshift.deustotech.eu
+    - labman-${CICD_GIT_BRANCH}.apps.openshift.deustotech.eu
     secretName: labman-web-cert
 

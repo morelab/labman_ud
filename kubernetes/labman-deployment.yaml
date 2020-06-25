@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: labman-web
-  namespace: labman-web-dev
+  namespace: labman-${CICD_GIT_BRANCH}
   labels:
     app: labman-web
 spec:
@@ -109,7 +109,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: labman-db
-  namespace: labman-web-dev
+  namespace: labman-${CICD_GIT_BRANCH}
   labels:
     app: labman-db
 spec:
