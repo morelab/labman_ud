@@ -13,6 +13,7 @@ from entities.utils.models import Tag, City, Country
 from extractors.zotero.models import ZoteroExtractorLog
 from labman_setup.models import ZoteroConfiguration
 from labman_ud.util import nslugify, get_or_default
+from django.template.defaultfilters import slugify
 
 from datetime import datetime
 from dateutil import parser
@@ -263,7 +264,9 @@ def extract_publications_from_zotero(from_version):
 ####################################################################################################
 
 def generate_publication(item):
-    existing_publications = Publication.objects.filter(zotero_key=item['key']).all()
+    # Fixed to filter by slug instead of by key
+    # existing_publications = Publication.objects.filter(zotero_key=item['key']).all()
+    existing_publications = Publication.objects.filter(slug=slugify(item['data']['title'].encode('utf-8'))).all()
 
     for existing_publication in existing_publications:
         # There should 0 or 1 publication for that zotero key but just in case we run a "for"
@@ -286,6 +289,7 @@ def generate_publication(item):
         'thesis': parse_thesis,
         'attachment': lambda print_attachment_warm: (logger.warn(u"Publication type is ATTACHMENT"))
     }
+    
 
     # Calling to needed function to parse the required element
     parse_publication.get(publication_type, lambda print_not_parsed: (logger.warn(u"NOT parsed: %s" % publication_type)
