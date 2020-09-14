@@ -265,8 +265,10 @@ def extract_publications_from_zotero(from_version):
 
 def generate_publication(item):
     # Fixed to filter by slug instead of by key
-    # existing_publications = Publication.objects.filter(zotero_key=item['key']).all()
-    existing_publications = Publication.objects.filter(slug=slugify(item['data']['title'].encode('utf-8'))).all()
+    try:
+        existing_publications = Publication.objects.filter(slug=slugify(item['data']['title'].encode('utf-8'))).all()
+    except:
+        existing_publications = Publication.objects.filter(zotero_key=item['key']).all()
 
     for existing_publication in existing_publications:
         # There should 0 or 1 publication for that zotero key but just in case we run a "for"
