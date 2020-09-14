@@ -170,6 +170,8 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
             if not found:
                 publications = []
 
+            
+
             session_filter_dict = {
                 'query_string' : query_string,
                 'publications': serializers.serialize('json', publications),
@@ -296,9 +298,10 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
         # Query by author and title. Fix by Unai Z & Ruben S
         
         author_ids = PublicationAuthor.objects.filter(author__full_name__icontains=query_string).values_list('author__id', flat=True)
-        sql_query = Publication.objects.filter(Q(authors__in=author_ids) | Q(title__icontains=query_string)).exclude(authors=None).all().order_by('-year')
+        sql_query = Publication.objects.filter(Q(authors__in=author_ids) | Q(title__icontains=query_string)).exclude(authors=None).all().order_by('-year').distinct()
 
         paginator = Paginator(sql_query, 10)
+
 
         if page == 'filtered':
             page = 1
@@ -385,7 +388,6 @@ def publication_index(request, tag_slug=None, publication_type=None, query_strin
         'web_title': u'Publications',
     }
 
-    
     return render(request, 'publications/index.html', return_dict)
 
 ###		publication_info

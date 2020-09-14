@@ -24,3 +24,5 @@ labman_ud/collected_static/
 
 robots.txt
 crontab/fstab
+
+*.nogit

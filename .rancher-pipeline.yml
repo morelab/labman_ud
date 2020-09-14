@@ -1,0 +1,22 @@
+stages:
+- name: Build Image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: labman:${CICD_EXECUTION_SEQUENCE}
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./kubernetes/labman-pvc.yaml
+  - applyYamlConfig:
+      path: ./kubernetes/labman-config.yaml
+  - applyYamlConfig:
+      path: ./kubernetes/labman-deployment.yaml
+  - applyYamlConfig:
+      path: ./kubernetes/labman-ingress.yaml
+  - applyYamlConfig:
+      path: ./kubernetes/labman-service.yaml
+timeout: 60
+notification: {}
+

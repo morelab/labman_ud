@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: labman-config
+  namespace: labman-${CICD_GIT_BRANCH}
+data:
+  debug: 'True'
+  allowed_hosts: '["*"]'
+  database_engine: 'django.db.backends.postgresql'
+  database_host: 'labman-db'
+  database_port: '5432'
+  nginx.conf: >-
+
+        error_log  /var/log/nginx/error.log;
+        events {
+        }
+        http {
+               access_log   /var/log/nginx/access.log;
+               include    /etc/nginx/mime.types;
+
+        server {
+        
+                listen 80;
+                server_name labman.apps.openshift.deustotech.eu morelab.deusto.es;
+                
+                location /static {
+                        autoindex on;
+                        alias /var/www/labman/static;
+                        proxy_set_header Host $host;
+                }
+        
+                location /media {
+                        autoindex on;
+                        alias /var/www/labman/media;
+                        proxy_set_header Host $host;
+                }
+        
+                location / {
+                        proxy_pass http://labman-web:8000;
+                        proxy_set_header Host $host;
+                }
+        
+                location /robots.txt {
+                        autoindex on;
+                        alias /var/www/labman/static/robots.txt;
+                        proxy_set_header Host $host;
+                }
+        
+                location /health {
+                        return 200 "healthy\n";
+                }
+        }
+        }
