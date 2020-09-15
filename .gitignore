@@ -11,11 +11,13 @@
 *.DS_Store
 
 # Settings
-#labman_ud/labman_ud/settings/*.py
+labman_ud/labman_ud/settings/*.py
+labman_ud/labman_ud/settings/settings/
 
 # Media and static files
 labman_ud/media/
 labman_ud/collected_static/
+labman_ud/static/
 
 # Test database files
 *.db
