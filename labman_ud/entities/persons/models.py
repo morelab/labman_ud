@@ -27,6 +27,8 @@ GENDERS = (
 
 TITLES = (
     ('Dr.', 'Dr.'),
+    ('MSc.', 'MSc.'),
+    ('BSc.', 'Bsc'),
 )
 
 
